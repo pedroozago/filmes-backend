@@ -2,6 +2,44 @@ const express = require('express');
 
 const server = express();
 
+const Pool = require('pg').Pool
+
+const pool = new Pool({
+
+    user: 'rsmxkdevoteymp',
+    password: '83d702b1b90281036acbaca811c2bb271bd6f9b7ca69d04f668f1cbe859b615b',
+    host: 'ec2-3-231-16-122.compute-1.amazonaws.com',
+    database: 'dc8t0f65c32u88',
+    port: '5432',
+    ssl: {
+        rejectUnauthorized: false
+    }
+})
+
+//sql de criação da tabela de filmes no banco
+const sqlTabelaFilmes = `
+    CREATE TABLE IF NOT EXISTS filmes
+    (
+        id serial primary key,
+        nome varchar(255),
+        diretor varchar(255),
+        ano int,
+        assistido boolean
+    )
+`;
+
+pool.query(sqlTabelaFilmes, (error, result) => {
+    if(error)
+        throw error
+    
+    console.log('Tabela criada com sucesso!');
+});
+
+
+
+
+
+
 server.use(express.json());
 
 const filmes = [
