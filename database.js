@@ -1,6 +1,5 @@
 //yarn para startar
 //yarn add pg
-
 const Pool = require('pg').Pool;
 
 //1 - Abrir a conexão
@@ -35,26 +34,25 @@ const pool = new Pool({
 // });
 
 //INSERT
-// const sql_insert = `
-//         INSERT INTO filmes (nome, diretor, ano, assistido) VALUES ('Dollitle','Pedro Stark',2021, false)
-// `;
+const sql_insert = `
+        INSERT INTO filmes (nome, diretor, ano, assistido) VALUES ('Ford Vs Ferrari','Pedro Ford',2019, true)
+`;
 
-// pool.query(sql_insert, function(error, result) {
-//     if(error)
-//         throw error;
+pool.query(sql_insert, function(error, result) {
+    if(error)
+        throw error;
 
-//     console.log(result.rowCount);
-// })
+    console.log(result.rowCount);
+})
 
 
 
 //SELECT
+// const sql_select = `SELECT * FROM filmes`;
 
-const sql_select = `SELECT * FROM filmes`;
+// pool.query(sql_select, function(error, result) {
+//     if(error)
+//         throw error;
 
-pool.query(sql_select, function(error, result) {
-    if(error)
-        throw error;
-
-    console.log(result.rows);
-})
+//     console.log(result.rows);
+// })
