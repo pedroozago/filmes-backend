@@ -21,6 +21,21 @@ server.get('/filme', async function(request, response) {
    return response.json(result.rows);
 })
 
+server.get('/filme/search', async function(request, response) {
+    const nome = request.query.nome;
+    const sql = `SELECT * FROM filmes WHERE nome ILIKE $1`;
+    const result = await pool.query(sql, ["%" +  nome + "%"]);
+    return response.json(result.rows);
+})
+
+server.get('/filme/:id', async function(request, response) {
+    const id = request.params.id;
+    const sql = `SELECT * FROM filmes WHERE id = $1`
+    const result = await pool.query(sql, [id]);
+    return response.json(result.rows);
+})
+
+
 //POST
 server.post('/filme', async function(request, response) {
     const nome = request.body.nome;
@@ -30,6 +45,42 @@ server.post('/filme', async function(request, response) {
     await pool.query(sql, [nome, diretor, ano, false]);
     return response.status(204).send();
 })
+
+
+//DELETE
+server.delete('/filme/:id', async function(request, response) {
+    const id = request.params.id;
+    const sql = `DELETE FROM filmes WHERE id = $1`;
+    await pool.query(sql, [id]);
+    return response.status(204).send();
+})
+
+
+//UPDATE
+server.put('/filme/:id', async function(request, response) {
+    const id = request.params.id;
+    const { nome, diretor, ano, assistido } = request.body;
+    const sql = `UPDATE filmes SET nome = $1, diretor = $2, ano = $3, assistido = $4 WHERE id = $5`;
+    await pool.query(sql, [nome, diretor, ano, assistido, id]);
+    return response.status(204).send();
+})
+
+
+//UPDATE DO assistido
+server.patch('/filme/:id/assistido', async function(request, response) {
+    const id = request.params.id;
+    const sql = `UPDATE filmes SET assistido = true WHERE id = $1`;
+    await pool.query(sql, [id]);
+    return response.status(204).send();
+})
+
+server.patch('/filme/:id/naoassistido', async function(request, response) {
+    const id = request.params.id;
+    const sql = `UPDATE filmes SET assistido = false WHERE id = $1`;
+    await pool.query(sql, [id]);
+    return response.status(204).send();
+})
+
 
 
 
