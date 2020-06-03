@@ -33,17 +33,17 @@ const pool = new Pool({
 //     console.log('Tabela criada com sucesso!');
 // });
 
-//INSERT
-const sql_insert = `
-        INSERT INTO filmes (nome, diretor, ano, assistido) VALUES ('Ford Vs Ferrari','Pedro Ford',2019, true)
-`;
+// //INSERT
+// const sql_insert = `
+//         INSERT INTO filmes (nome, diretor, ano, assistido) VALUES ('Ford Vs Ferrari','Pedro Ford',2019, true)
+// `;
 
-pool.query(sql_insert, function(error, result) {
-    if(error)
-        throw error;
+// pool.query(sql_insert, function(error, result) {
+//     if(error)
+//         throw error;
 
-    console.log(result.rowCount);
-})
+//     console.log(result.rowCount);
+// })
 
 
 
