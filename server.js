@@ -1,5 +1,6 @@
 const express = require('express');
 const Pool = require('pg').Pool;
+const cors = require('cors');
 
 const pool = new Pool({  
     user: 'rsmxkdevoteymp', 
@@ -11,6 +12,8 @@ const pool = new Pool({
 })
 
 const server = express();
+
+server.use(cors());
 
 server.use(express.json());
 
@@ -80,15 +83,6 @@ server.patch('/filme/:id/naoassistido', async function(request, response) {
     await pool.query(sql, [id]);
     return response.status(204).send();
 })
-
-
-
-
-
-
-
-
-
 
 
 
